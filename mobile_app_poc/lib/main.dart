@@ -38,10 +38,9 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(),
           bodyText2: TextStyle(),
         ).apply(
-          bodyColor: Colors.white,
-          displayColor: Colors.white,
-          fontFamily: 'Poppins'
-        ),
+            bodyColor: Colors.white,
+            displayColor: Colors.white,
+            fontFamily: 'Poppins'),
       ),
       home: const MyHomePage(title: 'ShopChain Mobile'),
     );
@@ -69,15 +68,18 @@ class _MyHomePageState extends State<MyHomePage> {
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                stops: [0.1, 0.4, 0.7, 0.9],
+                stops: [
+              0.1,
+              0.4,
+              0.7,
+              0.9
+            ],
                 colors: [
-                  Colors.black,
-                  Colors.blueGrey.shade900,
-                  Colors.blueGrey,
-                  Colors.brown.shade200,
-                ]
-            )
-        ),
+              Colors.black,
+              Colors.blueGrey.shade900,
+              Colors.blueGrey,
+              Colors.brown.shade200,
+            ])),
         child: Center(
             child: Column(children: [
           _getButtons(),
@@ -146,7 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white24,
                   padding: const EdgeInsets.all(16.0),
-                  textStyle: const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
+                  textStyle:
+                      const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
                 ),
                 onPressed: () {
                   Navigator.of(context).push(_createRoute1());
@@ -164,7 +167,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white24,
                   padding: const EdgeInsets.all(16.0),
-                  textStyle: const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
+                  textStyle:
+                      const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
                 ),
                 onPressed: () {
                   Navigator.of(context).push(_createRoute3());
@@ -239,14 +243,14 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+
   Route _createRoute3() {
     // reset QRCode scan results
     result = null;
     barCodeResult = "";
 
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          OrdersPage(),
+      pageBuilder: (context, animation, secondaryAnimation) => OrdersPage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
@@ -439,18 +443,21 @@ class _QROrderPageState extends State<QROrderPage> {
       return Scaffold(
         body: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0.1, 0.4, 0.7, 0.9],
-                colors: [
-                  Colors.black,
-                  Colors.blueGrey.shade900,
-                  Colors.blueGrey,
-                  Colors.brown.shade200,
-                ]
-            )
-        ),
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [
+                0.1,
+                0.4,
+                0.7,
+                0.9
+              ],
+                  colors: [
+                Colors.black,
+                Colors.blueGrey.shade900,
+                Colors.blueGrey,
+                Colors.brown.shade200,
+              ])),
           child: Center(
             child: Column(
               children: [
@@ -490,18 +497,21 @@ class _QROrderPageState extends State<QROrderPage> {
         ),
         body: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [0.1, 0.4, 0.7, 0.9],
-                colors: [
-                  Colors.black,
-                  Colors.blueGrey.shade900,
-                  Colors.blueGrey,
-                  Colors.brown.shade200,
-                ]
-            )
-        ),
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [
+                0.1,
+                0.4,
+                0.7,
+                0.9
+              ],
+                  colors: [
+                Colors.black,
+                Colors.blueGrey.shade900,
+                Colors.blueGrey,
+                Colors.brown.shade200,
+              ])),
           child: Column(
             children: [
               Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
@@ -534,8 +544,8 @@ class _QROrderPageState extends State<QROrderPage> {
                         break;
                       case "1":
                         state = "Confirmed";
-                        stateIcon =
-                            Icon(Icons.verified, color: Colors.white, size: 50.0);
+                        stateIcon = Icon(Icons.verified,
+                            color: Colors.white, size: 50.0);
                         break;
                       case "2":
                         state = "Deleted";
@@ -564,7 +574,8 @@ class _QROrderPageState extends State<QROrderPage> {
                           child: Row(
                             children: [
                               Icon(Icons.tag, color: Colors.white, size: 50.0),
-                              Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
                               Text("Order ID: $orderID",
                                   style: TextStyle(fontSize: 22))
                             ],
@@ -577,7 +588,8 @@ class _QROrderPageState extends State<QROrderPage> {
                             children: [
                               Icon(Icons.person_outline_outlined,
                                   color: Colors.white, size: 50.0),
-                              Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
                               Text("Seller: $seller",
                                   style: TextStyle(fontSize: 22))
                             ],
@@ -588,8 +600,10 @@ class _QROrderPageState extends State<QROrderPage> {
                         Padding(
                           child: Row(
                             children: [
-                              Icon(Icons.person, color: Colors.white, size: 50.0),
-                              Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                              Icon(Icons.person,
+                                  color: Colors.white, size: 50.0),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
                               Text("Buyer: $buyer",
                                   style: TextStyle(fontSize: 22))
                             ],
@@ -615,7 +629,8 @@ class _QROrderPageState extends State<QROrderPage> {
                           child: Row(
                             children: [
                               stateIcon,
-                              Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                              Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
                               Text("State: $state",
                                   style: TextStyle(fontSize: 22))
                             ],
@@ -641,7 +656,8 @@ class _QROrderPageState extends State<QROrderPage> {
                                   style: ElevatedButton.styleFrom(
                                     primary: Colors.white24,
                                     padding: const EdgeInsets.all(16.0),
-                                    textStyle: const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
+                                    textStyle: const TextStyle(
+                                        fontSize: 22, fontFamily: 'Poppins'),
                                   ),
                                   onPressed: () async => _confirmOrder(orderID),
                                   child: Text("Ask for Refund"),
@@ -690,124 +706,140 @@ class _QROrderPageState extends State<QROrderPage> {
   }
 }
 
-class OrdersPage extends StatelessWidget{
+class OrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Your Orders"),
-        ),
-        body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0.1, 0.4, 0.7, 0.9],
-                  colors: [
-                    Colors.black,
-                    Colors.blueGrey.shade900,
-                    Colors.blueGrey,
-                    Colors.brown.shade200,
-                  ]
-              )
-          ),
-          child: Column(children:[
-              SizedBox(height: 20,),
-              Row( children: [
-                  Container(
-                    width: 30,
-                    height: 50,
-                    padding: const EdgeInsets.all(8),
-                    child: const Text("ID"),
-                    color: Colors.teal[100],
-                  ),
-                  Container(
-                    width: 120,
-                    height: 50,
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('Seller'),
-                    color: Colors.teal[200],
-                  ),
-                  Container(
-                    width: 80,
-                    height: 50,
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('Amount'),
-                    color: Colors.teal[100],
-                  ),
-                  Container(
-                    width: 120,
-                    height: 50,
-                    padding: const EdgeInsets.all(8),
-                    child: const Text('State'),
-                    color: Colors.teal[200],
-                  ),],
-                mainAxisAlignment: MainAxisAlignment.center,
+      appBar: AppBar(
+        title: Text("Your Orders"),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [
+              0.1,
+              0.4,
+              0.7,
+              0.9
+            ],
+                colors: [
+              Colors.black,
+              Colors.blueGrey.shade900,
+              Colors.blueGrey,
+              Colors.brown.shade200,
+            ])),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Container(
+                  width: 30,
+                  height: 50,
+                  padding: const EdgeInsets.all(8),
+                  child: const Text("ID"),
+                  color: Colors.teal[100],
                 ),
-              FutureBuilder(
+                Container(
+                  width: 120,
+                  height: 50,
+                  padding: const EdgeInsets.all(8),
+                  child: const Text('Seller'),
+                  color: Colors.teal[200],
+                ),
+                Container(
+                  width: 80,
+                  height: 50,
+                  padding: const EdgeInsets.all(8),
+                  child: const Text('Amount'),
+                  color: Colors.teal[100],
+                ),
+                Container(
+                  width: 120,
+                  height: 50,
+                  padding: const EdgeInsets.all(8),
+                  child: const Text('State'),
+                  color: Colors.teal[200],
+                ),
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            FutureBuilder(
                 future: _getOrders(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting)
                     return Center(child: CircularProgressIndicator());
                   dynamic orders = snapshot.data;
-                  Column col = Column();
+                  List<Row> col = [Row()];
                   String seller = "";
                   String amount = "";
                   String state = "";
-                  Set<String> states = {"Created", "Confirmed", "Deleted", "Asked Refund", "Refunded"};
+                  Set<String> states = {
+                    "Created",
+                    "Confirmed",
+                    "Deleted",
+                    "Asked Refund",
+                    "Refunded"
+                  };
                   orders.forEach((element) => {
-                    seller = element[2].toString(),
-                    amount = EtherAmount.fromUnitAndValue(EtherUnit.wei, element[3])
-                                          .getValueInUnit(EtherUnit.ether)
-                                          .toString(),
-                    state = states.elementAt(element[4]),
-                    col.children.add(SizedBox(height: 2,)),
-                    col.children.add(
-                      Row(children: [
-                        Container(
-                          width: 30,
-                          height: 50,
-                          padding: const EdgeInsets.all(8),
-                          child: Text(orders[0].toString()),
-                          color: Colors.teal[100],
-                        ),
-                        Container(
-                          width: 120,
-                          height: 50,
-                          padding: const EdgeInsets.all(8),
-                          child: Text(seller.substring(0, 5)+"..."+seller.substring(seller.length-5)),
-                          color: Colors.teal[200],
-                        ),
-                        Container(
-                          width: 80,
-                          height: 50,
-                          padding: const EdgeInsets.all(8),
-                          child: Text(amount),
-                          color: Colors.teal[100],
-                        ),
-                        Container(
-                          width: 120,
-                          height: 50,
-                          padding: const EdgeInsets.all(8),
-                          child: Text(state),
-                          color: Colors.teal[200],
-                        ),
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,)
-                    )
-                  });
-                  return col;
-                }
-              )
-          ],),
-          
-          ),
-        );
+                        seller = element[2].toString(),
+                        amount = EtherAmount.fromUnitAndValue(
+                                EtherUnit.wei, element[3])
+                            .getValueInUnit(EtherUnit.ether)
+                            .toString(),
+                        state =
+                            states.elementAt(int.parse(element[4].toString())),
+                        col.add(Row(
+                          children: [
+                            Container(
+                              width: 30,
+                              height: 50,
+                              padding: const EdgeInsets.all(8),
+                              child: Text(element[0].toString()),
+                              color: Colors.teal[100],
+                            ),
+                            Container(
+                              width: 120,
+                              height: 50,
+                              padding: const EdgeInsets.all(8),
+                              child: Text(seller.substring(0, 5) +
+                                  "..." +
+                                  seller.substring(seller.length - 5)),
+                              color: Colors.teal[200],
+                            ),
+                            Container(
+                              width: 80,
+                              height: 50,
+                              padding: const EdgeInsets.all(8),
+                              child: Text(amount),
+                              color: Colors.teal[100],
+                            ),
+                            Container(
+                              width: 120,
+                              height: 50,
+                              padding: const EdgeInsets.all(8),
+                              child: Text(state),
+                              color: Colors.teal[200],
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        ))
+                      });
+                  return Column(children: col);
+                })
+          ],
+        ),
+      ),
+    );
   }
-  Future<List<dynamic>> _getOrders() async{
-    List<dynamic> orders = await escrow.getOrdersOfUser(EthereumAddress.fromHex(account));
+
+  Future<List<dynamic>> _getOrders() async {
+    List<dynamic> orders =
+        await escrow.getOrdersOfUser(EthereumAddress.fromHex(account));
     return orders;
   }
-  
-
 }
