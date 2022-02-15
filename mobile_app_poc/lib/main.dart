@@ -31,14 +31,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.indigo,
         scaffoldBackgroundColor: const Color.fromRGBO(27, 27, 27, 1.0),
+        fontFamily: 'Poppins',
         textTheme: TextTheme(
           bodyText1: TextStyle(),
           bodyText2: TextStyle(),
         ).apply(
           bodyColor: Colors.white,
           displayColor: Colors.white,
+          fontFamily: 'Poppins'
         ),
       ),
       home: const MyHomePage(title: 'ShopChain Mobile'),
@@ -62,10 +64,25 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-          child: Column(children: [
-        _getButtons(),
-      ])),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.1, 0.4, 0.7, 0.9],
+                colors: [
+                  Colors.black,
+                  Colors.blueGrey.shade900,
+                  Colors.blueGrey,
+                  Colors.brown.shade200,
+                ]
+            )
+        ),
+        child: Center(
+            child: Column(children: [
+          _getButtons(),
+        ])),
+      ),
     );
   }
 
@@ -126,6 +143,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SizedBox(
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white24,
+                  padding: const EdgeInsets.all(16.0),
+                  textStyle: const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
+                ),
                 onPressed: () {
                   Navigator.of(context).push(_createRoute1());
                 },
@@ -139,10 +161,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white24,
+                  padding: const EdgeInsets.all(16.0),
+                  textStyle: const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
+                ),
                 onPressed: () {
-                  Navigator.push(context, OrdersPage());
+                  Navigator.of(context).push(_createRoute3());
                 },
-                child: Text("See Orders", style: TextStyle(fontSize: 20)),
+                child: Text("Orders", style: TextStyle(fontSize: 20)),
               ),
               width: 140,
               height: 80,
@@ -176,8 +203,9 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
+              primary: Colors.white24,
               padding: const EdgeInsets.all(16.0),
-              textStyle: const TextStyle(fontSize: 25),
+              textStyle: const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
             ),
             onPressed: () async => _walletConnect(),
             child: const Text('Connect Wallet'),
@@ -196,6 +224,29 @@ class _MyHomePageState extends State<MyHomePage> {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) =>
           const QRScanPage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+  Route _createRoute3() {
+    // reset QRCode scan results
+    result = null;
+    barCodeResult = "";
+
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          OrdersPage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;
@@ -386,32 +437,47 @@ class _QROrderPageState extends State<QROrderPage> {
 
     if (OrderBuyer != account) {
       return Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              const Icon(Icons.error),
-              const Padding(
-                  padding: EdgeInsets.fromLTRB(50, 0, 50, 50),
-                  child: Text(
-                      "Careful!!! The wallet your logged in with is not the buyer of this order.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Color.fromRGBO(255, 0, 0, 100)))),
-              SizedBox(
-                width: 300,
-                height: 100,
-                child: ElevatedButton(
-                    onPressed: () => {
-                          barCodeResult = "",
-                          makeRoutePage(
-                              context, MyHomePage(title: "ShopChain Mobile"))
-                        },
-                    child: const Text("Go back to home page",
-                        style: TextStyle(fontSize: 25))),
-              )
-            ],
-            mainAxisAlignment: MainAxisAlignment.center,
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.1, 0.4, 0.7, 0.9],
+                colors: [
+                  Colors.black,
+                  Colors.blueGrey.shade900,
+                  Colors.blueGrey,
+                  Colors.brown.shade200,
+                ]
+            )
+        ),
+          child: Center(
+            child: Column(
+              children: [
+                const Icon(Icons.error),
+                const Padding(
+                    padding: EdgeInsets.fromLTRB(50, 0, 50, 50),
+                    child: Text(
+                        "Careful!!! The wallet your logged in with is not the buyer of this order.",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Color.fromRGBO(255, 0, 0, 100)))),
+                SizedBox(
+                  width: 300,
+                  height: 100,
+                  child: ElevatedButton(
+                      onPressed: () => {
+                            barCodeResult = "",
+                            makeRoutePage(
+                                context, MyHomePage(title: "ShopChain Mobile"))
+                          },
+                      child: const Text("Go back to home page",
+                          style: TextStyle(fontSize: 25))),
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            ),
           ),
         ),
       );
@@ -422,146 +488,173 @@ class _QROrderPageState extends State<QROrderPage> {
         appBar: AppBar(
           title: Text("Your Order"),
         ),
-        body: Column(
-          children: [
-            Padding(padding: EdgeInsets.fromLTRB(0, 50, 0, 0)),
-            SizedBox(
-              height: 30,
-            ),
-            FutureBuilder(
-                future: _getOrder(int.parse(QRresult.split(":")[1])),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting)
-                    return Center(child: CircularProgressIndicator());
-                  dynamic order = snapshot.data;
-                  String seller = order[2].toString();
-                  seller = seller.substring(0, 5) +
-                      " ... " +
-                      seller.substring(seller.length - 5);
-                  String buyer = order[1].toString();
-                  buyer = buyer.substring(0, 5) +
-                      " ... " +
-                      buyer.substring(buyer.length - 5);
-                  String orderID = order[0].toString();
-                  String amount =
-                      EtherAmount.fromUnitAndValue(EtherUnit.wei, order[3])
-                          .getValueInUnit(EtherUnit.ether)
-                          .toString();
-                  String state = "";
-                  Icon stateIcon;
-                  switch (order[4].toString()) {
-                    case "0":
-                      state = "Created";
-                      stateIcon = Icon(Icons.check_circle,
-                          color: Colors.white, size: 50.0);
-                      break;
-                    case "1":
-                      state = "Confirmed";
-                      stateIcon =
-                          Icon(Icons.verified, color: Colors.white, size: 50.0);
-                      break;
-                    case "2":
-                      state = "Deleted";
-                      stateIcon =
-                          Icon(Icons.delete, color: Colors.white, size: 50.0);
-                      break;
-                    case "3":
-                      state = "Asked Refund";
-                      stateIcon = Icon(Icons.assignment_return,
-                          color: Colors.white, size: 50.0);
-                      break;
-                    case "4":
-                      state = "Refunded";
-                      stateIcon =
-                          Icon(Icons.reply, color: Colors.white, size: 50.0);
-                      break;
-                    default:
-                      state = "Unknown State";
-                      stateIcon =
-                          Icon(Icons.error, color: Colors.white, size: 50.0);
-                      break;
-                  }
-                  return Column(
-                    children: [
-                      Padding(
-                        child: Row(
-                          children: [
-                            Icon(Icons.tag, color: Colors.white, size: 50.0),
-                            Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                            Text("Order ID: $orderID",
-                                style: TextStyle(fontSize: 25))
-                          ],
-                          //mainAxisAlignment: MainAxisAlignment.center
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.1, 0.4, 0.7, 0.9],
+                colors: [
+                  Colors.black,
+                  Colors.blueGrey.shade900,
+                  Colors.blueGrey,
+                  Colors.brown.shade200,
+                ]
+            )
+        ),
+          child: Column(
+            children: [
+              Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
+              FutureBuilder(
+                  future: _getOrder(int.parse(QRresult.split(":")[1])),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting)
+                      return Center(child: CircularProgressIndicator());
+                    dynamic order = snapshot.data;
+                    String seller = order[2].toString();
+                    seller = seller.substring(0, 5) +
+                        " ... " +
+                        seller.substring(seller.length - 5);
+                    String buyer = order[1].toString();
+                    buyer = buyer.substring(0, 5) +
+                        " ... " +
+                        buyer.substring(buyer.length - 5);
+                    String orderID = order[0].toString();
+                    String amount =
+                        EtherAmount.fromUnitAndValue(EtherUnit.wei, order[3])
+                            .getValueInUnit(EtherUnit.ether)
+                            .toString();
+                    String state = "";
+                    Icon stateIcon;
+                    switch (order[4].toString()) {
+                      case "0":
+                        state = "Created";
+                        stateIcon = Icon(Icons.check_circle,
+                            color: Colors.white, size: 50.0);
+                        break;
+                      case "1":
+                        state = "Confirmed";
+                        stateIcon =
+                            Icon(Icons.verified, color: Colors.white, size: 50.0);
+                        break;
+                      case "2":
+                        state = "Deleted";
+                        stateIcon =
+                            Icon(Icons.delete, color: Colors.white, size: 50.0);
+                        break;
+                      case "3":
+                        state = "Asked Refund";
+                        stateIcon = Icon(Icons.assignment_return,
+                            color: Colors.white, size: 50.0);
+                        break;
+                      case "4":
+                        state = "Refunded";
+                        stateIcon =
+                            Icon(Icons.reply, color: Colors.white, size: 50.0);
+                        break;
+                      default:
+                        state = "Unknown State";
+                        stateIcon =
+                            Icon(Icons.error, color: Colors.white, size: 50.0);
+                        break;
+                    }
+                    return Column(
+                      children: [
+                        Padding(
+                          child: Row(
+                            children: [
+                              Icon(Icons.tag, color: Colors.white, size: 50.0),
+                              Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                              Text("Order ID: $orderID",
+                                  style: TextStyle(fontSize: 22))
+                            ],
+                            //mainAxisAlignment: MainAxisAlignment.center
+                          ),
+                          padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         ),
-                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      ),
-                      Padding(
-                        child: Row(
-                          children: [
-                            Icon(Icons.person_outline_outlined,
-                                color: Colors.white, size: 50.0),
-                            Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                            Text("Seller: $seller",
-                                style: TextStyle(fontSize: 25))
-                          ],
-                          //mainAxisAlignment: MainAxisAlignment.center
+                        Padding(
+                          child: Row(
+                            children: [
+                              Icon(Icons.person_outline_outlined,
+                                  color: Colors.white, size: 50.0),
+                              Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                              Text("Seller: $seller",
+                                  style: TextStyle(fontSize: 22))
+                            ],
+                            //mainAxisAlignment: MainAxisAlignment.center
+                          ),
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                         ),
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      ),
-                      Padding(
-                        child: Row(
-                          children: [
-                            Icon(Icons.person, color: Colors.white, size: 50.0),
-                            Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                            Text("Buyer: $buyer",
-                                style: TextStyle(fontSize: 25))
-                          ],
-                          //mainAxisAlignment: MainAxisAlignment.center
+                        Padding(
+                          child: Row(
+                            children: [
+                              Icon(Icons.person, color: Colors.white, size: 50.0),
+                              Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                              Text("Buyer: $buyer",
+                                  style: TextStyle(fontSize: 22))
+                            ],
+                            //mainAxisAlignment: MainAxisAlignment.center
+                          ),
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                         ),
-                        padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      ),
-                      Padding(
-                        child: Row(
-                          children: [
-                            Padding(
-                                child: Image.asset("assets/LogoAvaxMin.png",
-                                    scale: 5),
-                                padding: EdgeInsets.fromLTRB(0, 0, 15, 0)),
-                            Text("Amount: $amount",
-                                style: TextStyle(fontSize: 25)),
-                          ],
-                          //mainAxisAlignment: MainAxisAlignment.center
+                        Padding(
+                          child: Row(
+                            children: [
+                              Padding(
+                                  child: Image.asset("assets/LogoAvaxMin.png",
+                                      scale: 5),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 15, 0)),
+                              Text("Amount: $amount",
+                                  style: TextStyle(fontSize: 22)),
+                            ],
+                            //mainAxisAlignment: MainAxisAlignment.center
+                          ),
+                          padding: EdgeInsets.fromLTRB(26, 20, 20, 0),
                         ),
-                        padding: EdgeInsets.fromLTRB(26, 20, 20, 0),
-                      ),
-                      Padding(
-                        child: Row(
-                          children: [
-                            stateIcon,
-                            Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
-                            Text("State: $state",
-                                style: TextStyle(fontSize: 25))
-                          ],
-                          //mainAxisAlignment: MainAxisAlignment.center
+                        Padding(
+                          child: Row(
+                            children: [
+                              stateIcon,
+                              Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+                              Text("State: $state",
+                                  style: TextStyle(fontSize: 22))
+                            ],
+                            //mainAxisAlignment: MainAxisAlignment.center
+                          ),
+                          padding: EdgeInsets.fromLTRB(22, 20, 20, 0),
                         ),
-                        padding: EdgeInsets.fromLTRB(22, 20, 20, 0),
-                      ),
-                      SizedBox(height: 50),
-                      (state == "Created")
-                          ? SizedBox(
-                              child: ElevatedButton(
-                                onPressed: () async => _confirmOrder(orderID),
-                                child: Text("Confirm Order",
-                                    style: TextStyle(fontSize: 25)),
-                              ),
-                              width: 200,
-                              height: 75,
-                            )
-                          : SizedBox(height: 0)
-                    ],
-                  );
-                })
-          ],
+                        SizedBox(height: 50),
+                        (state == "Created")
+                            ? SizedBox(
+                                child: ElevatedButton(
+                                  onPressed: () async => _confirmOrder(orderID),
+                                  child: Text("Confirm Order",
+                                      style: TextStyle(fontSize: 22)),
+                                ),
+                                width: 200,
+                                height: 75,
+                              )
+                            : SizedBox(height: 0),
+                        (state == "Confirmed")
+                            ? SizedBox(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.white24,
+                                    padding: const EdgeInsets.all(16.0),
+                                    textStyle: const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
+                                  ),
+                                  onPressed: () async => _confirmOrder(orderID),
+                                  child: Text("Ask for Refund"),
+                                ),
+                                width: 200,
+                                height: 75,
+                              )
+                            : SizedBox(height: 0),
+                      ],
+                    );
+                  })
+            ],
+          ),
         ));
   }
 
@@ -597,22 +690,124 @@ class _QROrderPageState extends State<QROrderPage> {
   }
 }
 
-class OrdersPage extends MaterialPageRoute<Null> {
-  OrdersPage()
-      : super(builder: (BuildContext ctx) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text("ShopChain Mobile"),
-            ),
-            body: Center(
-                child: Column(
-              children: [
-                Image.asset("assets/LogoShopChainTest5.png"),
-                Text("Questi sono i tuoi ordini"),
-                //RaisedButton(onPressed: (){Navigator.push(context, paginaQR());}, child: Text("QR Page"))
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            )),
-          );
-        });
+class OrdersPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Your Orders"),
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0.1, 0.4, 0.7, 0.9],
+                  colors: [
+                    Colors.black,
+                    Colors.blueGrey.shade900,
+                    Colors.blueGrey,
+                    Colors.brown.shade200,
+                  ]
+              )
+          ),
+          child: Column(children:[
+              SizedBox(height: 20,),
+              Row( children: [
+                  Container(
+                    width: 30,
+                    height: 50,
+                    padding: const EdgeInsets.all(8),
+                    child: const Text("ID"),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    width: 120,
+                    height: 50,
+                    padding: const EdgeInsets.all(8),
+                    child: const Text('Seller'),
+                    color: Colors.teal[200],
+                  ),
+                  Container(
+                    width: 80,
+                    height: 50,
+                    padding: const EdgeInsets.all(8),
+                    child: const Text('Amount'),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    width: 120,
+                    height: 50,
+                    padding: const EdgeInsets.all(8),
+                    child: const Text('State'),
+                    color: Colors.teal[200],
+                  ),],
+                mainAxisAlignment: MainAxisAlignment.center,
+                ),
+              FutureBuilder(
+                future: _getOrders(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting)
+                    return Center(child: CircularProgressIndicator());
+                  dynamic orders = snapshot.data;
+                  Column col = Column();
+                  String seller = "";
+                  String amount = "";
+                  String state = "";
+                  Set<String> states = {"Created", "Confirmed", "Deleted", "Asked Refund", "Refunded"};
+                  orders.forEach((element) => {
+                    seller = element[2].toString(),
+                    amount = EtherAmount.fromUnitAndValue(EtherUnit.wei, element[3])
+                                          .getValueInUnit(EtherUnit.ether)
+                                          .toString(),
+                    state = states.elementAt(element[4]),
+                    col.children.add(SizedBox(height: 2,)),
+                    col.children.add(
+                      Row(children: [
+                        Container(
+                          width: 30,
+                          height: 50,
+                          padding: const EdgeInsets.all(8),
+                          child: Text(orders[0].toString()),
+                          color: Colors.teal[100],
+                        ),
+                        Container(
+                          width: 120,
+                          height: 50,
+                          padding: const EdgeInsets.all(8),
+                          child: Text(seller.substring(0, 5)+"..."+seller.substring(seller.length-5)),
+                          color: Colors.teal[200],
+                        ),
+                        Container(
+                          width: 80,
+                          height: 50,
+                          padding: const EdgeInsets.all(8),
+                          child: Text(amount),
+                          color: Colors.teal[100],
+                        ),
+                        Container(
+                          width: 120,
+                          height: 50,
+                          padding: const EdgeInsets.all(8),
+                          child: Text(state),
+                          color: Colors.teal[200],
+                        ),
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.center,)
+                    )
+                  });
+                  return col;
+                }
+              )
+          ],),
+          
+          ),
+        );
+  }
+  Future<List<dynamic>> _getOrders() async{
+    List<dynamic> orders = await escrow.getOrdersOfUser(EthereumAddress.fromHex(account));
+    return orders;
+  }
+  
+
 }
