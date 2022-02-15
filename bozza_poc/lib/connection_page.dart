@@ -1,4 +1,21 @@
+import 'package:flutter/material.dart';
 
+class Page1 extends StatelessWidget {
+  const Page1({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: const Center(
+        child: Text('Al posto di questa pagina metti tutto quello che riguarda metamask, blockchain, ecc'),
+      ),
+    );
+  }
+}
+
+
+/*
 class ConnectionPage extends StatefulWidget {
   const ConnectionPage({Key? key, required this.title}) : super(key: key);
 
@@ -146,3 +163,6 @@ Future<String> _walletConnect() async {
 void _launchURL(var url) async {
   if (!await launch(url)) throw 'Could not launch $url';
 }
+
+
+*/
