@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        primarySwatch: Colors.red,
         scaffoldBackgroundColor: const Color.fromRGBO(27, 27, 27, 1.0),
         fontFamily: 'Poppins',
         textTheme: TextTheme(
@@ -60,30 +60,43 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [
-              0.1,
-              0.4,
-              0.7,
-              0.9
-            ],
-                colors: [
-              Colors.black,
-              Colors.blueGrey.shade900,
-              Colors.blueGrey,
-              Colors.brown.shade200,
-            ])),
-        child: Center(
-            child: Column(children: [
-          _getButtons(),
-        ])),
+          image: DecorationImage(
+            image: AssetImage("assets/app-wallpaper1.png"),
+            fit: BoxFit.cover
+          )
+        ),
+        child: SafeArea(
+          child: Center(
+              child: Column(children: [
+                Container(
+                  height: 60,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        Colors.blue.shade900,
+                        Colors.red.shade700,
+                      ],
+                    )
+                  ),
+                child: Center(
+                  child: Text(
+                    "ShopChain",
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      fontFamily: 'Poppins'
+                    ),
+                  ),
+                ),),
+                _getButtons(),
+              ]
+            )
+          ),
+        ),
       ),
     );
   }
@@ -130,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SizedBox(
             height: 400,
             width: 400,
-            child: Image.asset("assets/LogoShopChainTest5.png", scale: 2.0)),
+            child: Image.asset("assets/LogoShopChainTest5.png", scale: 2.25)),
         Padding(
             padding: EdgeInsets.fromLTRB(50, 0, 50, 10),
             child: Text(
@@ -146,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white24,
+                  primary: Colors.white12,
                   padding: const EdgeInsets.all(16.0),
                   textStyle:
                       const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
@@ -165,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white24,
+                  primary: Colors.white12,
                   padding: const EdgeInsets.all(16.0),
                   textStyle:
                       const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
@@ -207,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.white24,
+              primary: Colors.white12,
               padding: const EdgeInsets.all(16.0),
               textStyle: const TextStyle(fontSize: 22, fontFamily: 'Poppins'),
             ),
@@ -442,22 +455,12 @@ class _QROrderPageState extends State<QROrderPage> {
     if (OrderBuyer != account) {
       return Scaffold(
         body: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [
-                0.1,
-                0.4,
-                0.7,
-                0.9
-              ],
-                  colors: [
-                Colors.black,
-                Colors.blueGrey.shade900,
-                Colors.blueGrey,
-                Colors.brown.shade200,
-              ])),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/app-wallpaper1.png"),
+            fit: BoxFit.cover
+          )
+        ),
           child: Center(
             child: Column(
               children: [
@@ -497,21 +500,11 @@ class _QROrderPageState extends State<QROrderPage> {
         ),
         body: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [
-                0.1,
-                0.4,
-                0.7,
-                0.9
-              ],
-                  colors: [
-                Colors.black,
-                Colors.blueGrey.shade900,
-                Colors.blueGrey,
-                Colors.brown.shade200,
-              ])),
+            image: DecorationImage(
+              image: AssetImage("assets/app-wallpaper1.png"),
+              fit: BoxFit.cover
+            )
+          ),
           child: Column(
             children: [
               Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
@@ -642,6 +635,12 @@ class _QROrderPageState extends State<QROrderPage> {
                         (state == "Created")
                             ? SizedBox(
                                 child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.white12,
+                                    padding: const EdgeInsets.all(16.0),
+                                    textStyle: const TextStyle(
+                                        fontSize: 22, fontFamily: 'Poppins'),
+                                  ),
                                   onPressed: () async => _confirmOrder(orderID),
                                   child: Text("Confirm Order",
                                       style: TextStyle(fontSize: 22)),
@@ -654,7 +653,7 @@ class _QROrderPageState extends State<QROrderPage> {
                             ? SizedBox(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: Colors.white24,
+                                    primary: Colors.white12,
                                     padding: const EdgeInsets.all(16.0),
                                     textStyle: const TextStyle(
                                         fontSize: 22, fontFamily: 'Poppins'),
@@ -715,123 +714,113 @@ class OrdersPage extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: [
-              0.1,
-              0.4,
-              0.7,
-              0.9
+          image: DecorationImage(
+            image: AssetImage("assets/app-wallpaper1.png"),
+            fit: BoxFit.cover
+          )
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              FutureBuilder(
+                  future: _getOrders(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting)
+                      return Center(child: CircularProgressIndicator());
+                    dynamic orders = snapshot.data;
+                    List<Row> col = [
+                      Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 50,
+                            padding: const EdgeInsets.all(8),
+                            child: const Text("ID", style: TextStyle(fontSize: 23), textAlign: TextAlign.center,),
+                            color: Colors.white24,
+                          ),
+                          Container(
+                            width: 120,
+                            height: 50,
+                            padding: const EdgeInsets.all(8),
+                            child: const Text("Seller", style: TextStyle(fontSize: 23), textAlign: TextAlign.center,),
+                            color: Colors.white12,
+                          ),
+                          Container(
+                            width: 80,
+                            height: 50,
+                            padding: const EdgeInsets.all(8),
+                            child: const Text("Amnt", style: TextStyle(fontSize: 23), textAlign: TextAlign.center,),
+                            color: Colors.white24,
+                          ),
+                          Container(
+                            width: 120,
+                            height: 50,
+                            padding: const EdgeInsets.all(8),
+                            child: const Text("State", style: TextStyle(fontSize: 23), textAlign: TextAlign.center,),
+                            color: Colors.white12,
+                          ),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                      ];
+                    String seller = "";
+                    String amount = "";
+                    String state = "";
+                    Set<String> states = {
+                      "Created",
+                      "Confirmed",
+                      "Deleted",
+                      "Asked Refund",
+                      "Refunded"
+                    };
+                    orders.forEach((element) => {
+                          seller = element[2].toString(),
+                          amount = EtherAmount.fromUnitAndValue(
+                                  EtherUnit.wei, element[3])
+                              .getValueInUnit(EtherUnit.ether)
+                              .toString(),
+                          state =
+                              states.elementAt(int.parse(element[4].toString())),
+                          col.add(Row(
+                            children: [
+                              Container(
+                                width: 40,
+                                height: 50,
+                                padding: const EdgeInsets.all(8),
+                                child: Text(element[0].toString(), textAlign: TextAlign.center,),
+                                color: Colors.white12,
+                              ),
+                              Container(
+                                width: 120,
+                                height: 50,
+                                padding: const EdgeInsets.all(8),
+                                child: Text(seller.substring(0, 5) +
+                                    "..." +
+                                    seller.substring(seller.length - 5), textAlign: TextAlign.center,),
+                                color: Colors.white24,
+                              ),
+                              Container(
+                                width: 80,
+                                height: 50,
+                                padding: const EdgeInsets.all(8),
+                                child: Text(amount, textAlign: TextAlign.center,),
+                                color: Colors.white12,
+                              ),
+                              Container(
+                                width: 120,
+                                height: 50,
+                                padding: const EdgeInsets.all(8),
+                                child: Text(state, textAlign: TextAlign.center,),
+                                color: Colors.white24,
+                              ),
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.center,
+                          ))
+                        });
+                    return Column(children: col);
+                  })
             ],
-                colors: [
-              Colors.black,
-              Colors.blueGrey.shade900,
-              Colors.blueGrey,
-              Colors.brown.shade200,
-            ])),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                Container(
-                  width: 30,
-                  height: 50,
-                  padding: const EdgeInsets.all(8),
-                  child: const Text("ID"),
-                  color: Colors.teal[100],
-                ),
-                Container(
-                  width: 120,
-                  height: 50,
-                  padding: const EdgeInsets.all(8),
-                  child: const Text('Seller'),
-                  color: Colors.teal[200],
-                ),
-                Container(
-                  width: 80,
-                  height: 50,
-                  padding: const EdgeInsets.all(8),
-                  child: const Text('Amount'),
-                  color: Colors.teal[100],
-                ),
-                Container(
-                  width: 120,
-                  height: 50,
-                  padding: const EdgeInsets.all(8),
-                  child: const Text('State'),
-                  color: Colors.teal[200],
-                ),
-              ],
-              mainAxisAlignment: MainAxisAlignment.center,
-            ),
-            FutureBuilder(
-                future: _getOrders(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting)
-                    return Center(child: CircularProgressIndicator());
-                  dynamic orders = snapshot.data;
-                  List<Row> col = [Row()];
-                  String seller = "";
-                  String amount = "";
-                  String state = "";
-                  Set<String> states = {
-                    "Created",
-                    "Confirmed",
-                    "Deleted",
-                    "Asked Refund",
-                    "Refunded"
-                  };
-                  orders.forEach((element) => {
-                        seller = element[2].toString(),
-                        amount = EtherAmount.fromUnitAndValue(
-                                EtherUnit.wei, element[3])
-                            .getValueInUnit(EtherUnit.ether)
-                            .toString(),
-                        state =
-                            states.elementAt(int.parse(element[4].toString())),
-                        col.add(Row(
-                          children: [
-                            Container(
-                              width: 30,
-                              height: 50,
-                              padding: const EdgeInsets.all(8),
-                              child: Text(element[0].toString()),
-                              color: Colors.teal[100],
-                            ),
-                            Container(
-                              width: 120,
-                              height: 50,
-                              padding: const EdgeInsets.all(8),
-                              child: Text(seller.substring(0, 5) +
-                                  "..." +
-                                  seller.substring(seller.length - 5)),
-                              color: Colors.teal[200],
-                            ),
-                            Container(
-                              width: 80,
-                              height: 50,
-                              padding: const EdgeInsets.all(8),
-                              child: Text(amount),
-                              color: Colors.teal[100],
-                            ),
-                            Container(
-                              width: 120,
-                              height: 50,
-                              padding: const EdgeInsets.all(8),
-                              child: Text(state),
-                              color: Colors.teal[200],
-                            ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.center,
-                        ))
-                      });
-                  return Column(children: col);
-                })
-          ],
+          ),
         ),
       ),
     );
