@@ -62,40 +62,33 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/app-wallpaper1.png"),
-            fit: BoxFit.cover
-          )
-        ),
+            image: DecorationImage(
+                image: AssetImage("assets/app-wallpaper1.png"),
+                fit: BoxFit.cover)),
         child: SafeArea(
           child: Center(
               child: Column(children: [
-                Container(
-                  height: 60,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        Colors.blue.shade900,
-                        Colors.red.shade700,
-                      ],
-                    )
-                  ),
-                child: Center(
-                  child: Text(
-                    "ShopChain",
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontFamily: 'Poppins'
-                    ),
-                  ),
-                ),),
-                _getButtons(),
-              ]
-            )
-          ),
+            Container(
+              height: 60,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Colors.blue.shade900,
+                  Colors.red.shade700,
+                ],
+              )),
+              child: Center(
+                child: Text(
+                  "ShopChain",
+                  style: TextStyle(fontSize: 30.0, fontFamily: 'Poppins'),
+                ),
+              ),
+            ),
+            _getButtons(),
+          ])),
         ),
       ),
     );
@@ -455,12 +448,10 @@ class _QROrderPageState extends State<QROrderPage> {
     if (OrderBuyer != account) {
       return Scaffold(
         body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/app-wallpaper1.png"),
-            fit: BoxFit.cover
-          )
-        ),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/app-wallpaper1.png"),
+                  fit: BoxFit.cover)),
           child: Center(
             child: Column(
               children: [
@@ -500,11 +491,9 @@ class _QROrderPageState extends State<QROrderPage> {
         ),
         body: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/app-wallpaper1.png"),
-              fit: BoxFit.cover
-            )
-          ),
+              image: DecorationImage(
+                  image: AssetImage("assets/app-wallpaper1.png"),
+                  fit: BoxFit.cover)),
           child: Column(
             children: [
               Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
@@ -658,7 +647,7 @@ class _QROrderPageState extends State<QROrderPage> {
                                     textStyle: const TextStyle(
                                         fontSize: 22, fontFamily: 'Poppins'),
                                   ),
-                                  onPressed: () async => _confirmOrder(orderID),
+                                  onPressed: () async => _askRefund(orderID),
                                   child: Text("Ask for Refund"),
                                 ),
                                 width: 200,
@@ -683,6 +672,19 @@ class _QROrderPageState extends State<QROrderPage> {
     launch("https://metamask.app.link/");
 
     String returned = await escrow.confirmOrder(BigInt.parse(orderID),
+        credentials: credentials, transaction: transaction);
+  }
+
+  Future<void> _askRefund(String orderID) async {
+    final transaction = Transaction(
+      to: contractAddr,
+      from: EthereumAddress.fromHex(account),
+      value: EtherAmount.fromUnitAndValue(EtherUnit.finney, 0),
+    );
+
+    launch("https://metamask.app.link/");
+
+    String returned = await escrow.askRefund(BigInt.parse(orderID),
         credentials: credentials, transaction: transaction);
   }
 
@@ -714,11 +716,9 @@ class OrdersPage extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/app-wallpaper1.png"),
-            fit: BoxFit.cover
-          )
-        ),
+            image: DecorationImage(
+                image: AssetImage("assets/app-wallpaper1.png"),
+                fit: BoxFit.cover)),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -735,34 +735,50 @@ class OrdersPage extends StatelessWidget {
                             width: 40,
                             height: 50,
                             padding: const EdgeInsets.all(8),
-                            child: const Text("ID", style: TextStyle(fontSize: 23), textAlign: TextAlign.center,),
+                            child: const Text(
+                              "ID",
+                              style: TextStyle(fontSize: 23),
+                              textAlign: TextAlign.center,
+                            ),
                             color: Colors.white24,
                           ),
                           Container(
                             width: 120,
                             height: 50,
                             padding: const EdgeInsets.all(8),
-                            child: const Text("Seller", style: TextStyle(fontSize: 23), textAlign: TextAlign.center,),
+                            child: const Text(
+                              "Seller",
+                              style: TextStyle(fontSize: 23),
+                              textAlign: TextAlign.center,
+                            ),
                             color: Colors.white12,
                           ),
                           Container(
                             width: 80,
                             height: 50,
                             padding: const EdgeInsets.all(8),
-                            child: const Text("Amnt", style: TextStyle(fontSize: 23), textAlign: TextAlign.center,),
+                            child: const Text(
+                              "Amnt",
+                              style: TextStyle(fontSize: 23),
+                              textAlign: TextAlign.center,
+                            ),
                             color: Colors.white24,
                           ),
                           Container(
                             width: 120,
                             height: 50,
                             padding: const EdgeInsets.all(8),
-                            child: const Text("State", style: TextStyle(fontSize: 23), textAlign: TextAlign.center,),
+                            child: const Text(
+                              "State",
+                              style: TextStyle(fontSize: 23),
+                              textAlign: TextAlign.center,
+                            ),
                             color: Colors.white12,
                           ),
                         ],
                         mainAxisAlignment: MainAxisAlignment.center,
                       ),
-                      ];
+                    ];
                     String seller = "";
                     String amount = "";
                     String state = "";
@@ -779,38 +795,50 @@ class OrdersPage extends StatelessWidget {
                                   EtherUnit.wei, element[3])
                               .getValueInUnit(EtherUnit.ether)
                               .toString(),
-                          state =
-                              states.elementAt(int.parse(element[4].toString())),
+                          state = states
+                              .elementAt(int.parse(element[4].toString())),
                           col.add(Row(
                             children: [
                               Container(
                                 width: 40,
                                 height: 50,
                                 padding: const EdgeInsets.all(8),
-                                child: Text(element[0].toString(), textAlign: TextAlign.center,),
+                                child: Text(
+                                  element[0].toString(),
+                                  textAlign: TextAlign.center,
+                                ),
                                 color: Colors.white12,
                               ),
                               Container(
                                 width: 120,
                                 height: 50,
                                 padding: const EdgeInsets.all(8),
-                                child: Text(seller.substring(0, 5) +
-                                    "..." +
-                                    seller.substring(seller.length - 5), textAlign: TextAlign.center,),
+                                child: Text(
+                                  seller.substring(0, 5) +
+                                      "..." +
+                                      seller.substring(seller.length - 5),
+                                  textAlign: TextAlign.center,
+                                ),
                                 color: Colors.white24,
                               ),
                               Container(
                                 width: 80,
                                 height: 50,
                                 padding: const EdgeInsets.all(8),
-                                child: Text(amount, textAlign: TextAlign.center,),
+                                child: Text(
+                                  amount,
+                                  textAlign: TextAlign.center,
+                                ),
                                 color: Colors.white12,
                               ),
                               Container(
                                 width: 120,
                                 height: 50,
                                 padding: const EdgeInsets.all(8),
-                                child: Text(state, textAlign: TextAlign.center,),
+                                child: Text(
+                                  state,
+                                  textAlign: TextAlign.center,
+                                ),
                                 color: Colors.white24,
                               ),
                             ],
